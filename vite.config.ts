@@ -25,6 +25,12 @@ export default defineConfig(({ mode }) => ({
       external: ['mongodb']
     }
   },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./client"),
+      "@shared": path.resolve(__dirname, "./shared"),
+    }
+  },
   plugins: [react(), expressPlugin()],
 }));
 
