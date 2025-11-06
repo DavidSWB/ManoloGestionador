@@ -29,7 +29,7 @@ function setupApp() {
   app.use("/api/cobros", cobrosRouter);
   app.use("/api/recordatorios", recordatoriosRouter);
   app.use("/api/reports", reportsRouter);
-  app.use("/api/", testMailRouter);
+  app.use("/api", testMailRouter);
 
   app.get("/api/ping", (req, res) => res.json({ message: "pong" }));
 
