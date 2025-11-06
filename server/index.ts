@@ -22,18 +22,18 @@ function setupApp() {
   app.use(cors());
   app.use(express.json());
 
-  app.use("/auth", authRouter);
-  app.use("/clientes", clientesRouter);
-  app.use("/mascotas", mascotasRouter);
-  app.use("/servicios", serviciosRouter);
-  app.use("/cobros", cobrosRouter);
-  app.use("/recordatorios", recordatoriosRouter);
-  app.use("/reports", reportsRouter);
-  app.use("/", testMailRouter);
+  app.use("/api/auth", authRouter);
+  app.use("/api/clientes", clientesRouter);
+  app.use("/api/mascotas", mascotasRouter);
+  app.use("/api/servicios", serviciosRouter);
+  app.use("/api/cobros", cobrosRouter);
+  app.use("/api/recordatorios", recordatoriosRouter);
+  app.use("/api/reports", reportsRouter);
+  app.use("/api/", testMailRouter);
 
   app.get("/api/ping", (req, res) => res.json({ message: "pong" }));
 
-  app.get("/seed", async (req, res) => {
+  app.get("/api/seed", async (req, res) => {
     try {
       const db = await connectDB();
       // seed sample data
