@@ -71,15 +71,15 @@ export function createServer() {
   return setupApp();
 }
 
-async function start() {
-  await connectDB();
-  const port = Number(process.env.PORT || 4000);
-  const app = setupApp();
-  app.listen(port, () => console.log("Server listening on port", port));
-}
+// async function start() {
+//   await connectDB();
+//   const port = Number(process.env.PORT || 4000);
+//   const app = setupApp();
+//   app.listen(port, () => console.log("Server listening on port", port));
+// }
 
-if (process.env.NODE_ENV !== "test" && process.env.RUN_SERVER !== "false") {
-  start();
-}
+// if (process.env.NODE_ENV !== "test" && process.env.RUN_SERVER !== "false") {
+//   start();
+// }
 
 export default setupApp();
