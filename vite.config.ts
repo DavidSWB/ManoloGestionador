@@ -25,6 +25,10 @@ export default defineConfig(({ mode }) => ({
       external: ['mongodb']
     }
   },
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL)
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),

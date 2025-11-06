@@ -2,17 +2,29 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/spa/**",
-      "use": "@vercel/static"
+      "src": "server/node-build.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/**",
+      "use": "@vercel/static-build",
+      "config": {
+        "zeroConfig": true
+      }
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
+    {
+      "src": "/api/(.*)",
+      "dest": "server/node-build.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/index.html"
     }
-
-  }
+  ]
 }
