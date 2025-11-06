@@ -28,8 +28,8 @@ export default defineConfig(({ mode }) => ({
   },
   resolve: {
     alias: {
-      "@": path.resolve(dirname, "./client"),
-      "@shared": path.resolve(dirname, "./shared"),
+      "@": path.resolve(__dirname, "./client"),
+      "@shared": path.resolve(__dirname, "./shared"),
     }
   },
   plugins: [react(), expressPlugin()],
