@@ -1,15 +1,19 @@
 import express from "express";
 import cors from "cors";
+import express from "express";
+import cors from "cors";
 import dotenv from "dotenv";
-import { connectDB } from "./db";
-import authRouter from "./routes/auth";
-import clientesRouter from "./routes/clientes";
-import mascotasRouter from "./routes/mascotas";
-import serviciosRouter from "./routes/servicios";
-import cobrosRouter from "./routes/cobros";
-import recordatoriosRouter from "./routes/recordatorios";
-import reportsRouter from "./routes/reports";
-import testMailRouter from "./routes/test-mail";
+//  .js añadido aquí
+import { connectDB } from "./db.js"; 
+//  .js añadido en todas estas rutas
+import authRouter from "./routes/auth.js";
+import clientesRouter from "./routes/clientes.js";
+import mascotasRouter from "./routes/mascotas.js";
+import serviciosRouter from "./routes/servicios.js";
+import cobrosRouter from "./routes/cobros.js";
+import recordatoriosRouter from "./routes/recordatorios.js";
+import reportsRouter from "./routes/reports.js";
+import testMailRouter from "./routes/test-mail.js";
 
 dotenv.config();
 
