@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
-import { getDb } from "../db";
-import { requireAuth } from "../middleware/auth";
+import { getDb } from "../db.js";
+import { requireAuth } from "../middleware/auth.js";
 import { sendMail } from "../utils/mail";
 import { ObjectId } from "mongodb";
 

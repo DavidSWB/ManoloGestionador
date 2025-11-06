@@ -7,21 +7,44 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { useAppData } from "@/context/app-data";
 
-const Schema = z.object({
-  nombre: z.string().min(1, "Requerido"),
+import { Cliente } from "@shared/api";
+
+const formSchema = z.object({
+  nombre: z.string({
+    required_error: "Requerido"
+  }).min(1, "Requerido"),
   direccion: z.string().optional(),
-  correo: z.string().email("Correo inválido"),
-  telefono: z.string().min(7, "Teléfono inválido"),
+  correo: z.string({
+    required_error: "Requerido"
+  }).email("Correo inválido"),
+  telefono: z.string({
+    required_error: "Requerido"
+  }).min(7, "Teléfono inválido"),
 });
 
-type Values = z.infer<typeof Schema>;
+type FormData = z.infer<typeof formSchema>;
 
 export function AddClientModal({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
   const data = useAppData();
-  const form = useForm<Values>({ resolver: zodResolver(Schema), defaultValues: { nombre: "", direccion: "", correo: "", telefono: "" } });
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      nombre: "",
+      direccion: "",
+      correo: "",
+      telefono: ""
+    }
+  });
 
-  function onSubmit(values: Values) {
-    data.addCliente(values);
+  function onSubmit(values: FormData) {
+    // Assert that values has all required fields
+    const clienteData: Omit<Cliente, 'id'> = {
+      nombre: values.nombre,
+      direccion: values.direccion,
+      correo: values.correo,
+      telefono: values.telefono,
+    };
+    data.addCliente(clienteData);
     onOpenChange(false);
     form.reset();
   }

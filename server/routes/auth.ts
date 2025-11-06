@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { z } from "zod";
-import { getDb } from "../db";
+import { getDb } from "../db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
