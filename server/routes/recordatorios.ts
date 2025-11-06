@@ -2,7 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 import { getDb } from "../db.js";
 import { requireAuth } from "../middleware/auth.js";
-import { sendMail } from "../utils/mail";
+import { sendMail } from "../utils/mail.js";
 import { ObjectId } from "mongodb";
 
 const router = Router();
