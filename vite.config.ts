@@ -16,10 +16,17 @@ export default defineConfig(({ mode }) => ({
       '/api': 'http://localhost:8080'
     }
   },
+  resolve: {
+    dedupe: ['react', 'react-dom']
+  },
+  optimizeDeps: {
+    include: ['react/jsx-runtime']
+  },
   build: {
     outDir: "dist/spa",
     commonjsOptions: {
-      include: [/mongodb/]
+      include: [/mongodb/],
+      transformMixedEsModules: true
     },
     rollupOptions: {
       external: ['mongodb']
