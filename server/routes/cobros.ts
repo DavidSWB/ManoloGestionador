@@ -2,7 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 import { getDb } from "../db.js";
 import { requireAuth } from "../middleware/auth.js";
-import { invoicePdfBuffer } from "../utils/pdf";
+import { invoicePdfBuffer } from "../utils/pdf.js";
 import { ObjectId } from "mongodb";
 
 const router = Router();
