@@ -16,29 +16,16 @@ export default defineConfig(({ mode }) => ({
       '/api': 'http://localhost:8080'
     }
   },
-  resolve: {
-    dedupe: ['react', 'react-dom']
-  },
-  optimizeDeps: {
-    include: ['react/jsx-runtime']
-  },
   build: {
     outDir: "dist/spa",
     commonjsOptions: {
-      include: [/mongodb/],
-      transformMixedEsModules: true
+      include: [/mongodb/]
     },
     rollupOptions: {
       external: ['mongodb']
     }
   },
   plugins: [react(), expressPlugin()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./client"),
-      "@shared": path.resolve(__dirname, "./shared"),
-    },
-  },
 }));
 
 function expressPlugin(): Plugin {
