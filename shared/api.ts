@@ -10,3 +10,12 @@
 export interface DemoResponse {
   message: string;
 }
+
+export interface Cliente {
+  id?: string;
+  nombre: string;
+  direccion?: string;
+  correo: string;
+  telefono: string;
+  creadoEn?: Date;
+}
