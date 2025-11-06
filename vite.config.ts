@@ -1,7 +1,7 @@
 import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { createServer } from "./server";
+// NO importes './server' aquí
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -10,20 +10,17 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     fs: {
       allow: ["./client", "./shared", "./"],
-      deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
+      deny: [".env", ".env.", ".{crt,pem}", "/.git/", "server/**"],
     },
     proxy: {
-      '/api': 'http://localhost:8080'
+      '/api': 'http://localhost:8080/'
     }
   },
   build: {
     outDir: "dist/spa",
-    commonjsOptions: {
-      include: [/mongodb/]
-    },
-    rollupOptions: {
-      external: ['mongodb']
-    }
+    // Elimina las opciones de 'commonjsOptions' y 'rollupOptions'
+    // que intentaban empaquetar 'mongodb'.
+    // El build del cliente no debe saber nada de mongodb.
   },
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
@@ -31,8 +28,8 @@ export default defineConfig(({ mode }) => ({
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./client"),
-      "@shared": path.resolve(__dirname, "./shared"),
+      "@": path.resolve(dirname, "./client"),
+      "@shared": path.resolve(dirname, "./shared"),
     }
   },
   plugins: [react(), expressPlugin()],
@@ -41,12 +38,16 @@ export default defineConfig(({ mode }) => ({
 function expressPlugin(): Plugin {
   return {
     name: "express-plugin",
-    apply: "serve", // Only apply during development (serve mode)
+    apply: "serve", // Correcto: solo se aplica en desarrollo
     configureServer(server) {
-      const app = createServer();
-
-      // Add Express app as middleware to Vite dev server
-      server.middlewares.use(app);
+      // Importa el servidor SÓLO dentro de esta función
+      // para que no contamine el build de producción
+      import("./server").then(({ createServer }) => {
+        const app = createServer();
+        server.middlewares.use(app);
+      }).catch(err => {
+        console.error("Error al cargar el servidor express:", err);
+      });
     },
   };
 }
