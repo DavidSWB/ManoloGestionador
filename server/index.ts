@@ -31,7 +31,7 @@ function setupApp() {
   app.use("/reports", reportsRouter);
   app.use("/", testMailRouter);
 
-  app.get("/ping", (req, res) => res.json({ message: "pong" }));
+  app.get("/ping/api", (req, res) => res.json({ message: "pong" }));
 
   app.get("/seed", async (req, res) => {
     try {
